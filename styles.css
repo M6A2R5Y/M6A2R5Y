@@ -354,54 +354,20 @@ body {
   border-color: var(--accent);
 }
 
-.companion-avatar {
-  width: 60px;
-  height: 60px;
+.companion-mascot-img {
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  object-fit: cover;
+  border: 2.5px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 8px;
   transition: var(--transition);
 }
-.companion-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-/* Custom companion visual styles */
-.js-avatar {
-  background-color: var(--pastel-yellow);
-  border-radius: 35%;
-}
-.js-avatar .eyes { letter-spacing: 2px; }
-
-.ts-avatar {
-  background-color: var(--pastel-blue);
-  border-radius: 12px;
-}
-.wizard-hat {
-  position: absolute;
-  top: -10px;
-  font-size: 0.8rem;
-  color: #1E3A8A;
-}
-
-.python-avatar {
-  background-color: var(--pastel-mint);
-  border-radius: 40%;
-}
-
-.react-avatar {
-  background-color: #E0F2FE;
-  animation: spinreact 15s linear infinite;
-}
-@keyframes spinreact {
-  100% { transform: rotate(360deg); }
+.companion-card:hover .companion-mascot-img {
+  transform: scale(1.1) rotate(5deg);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
 .companion-label {

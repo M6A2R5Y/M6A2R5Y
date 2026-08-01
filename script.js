@@ -72,13 +72,22 @@ let typingTimeout;
 
 function typeContent(text) {
   clearTimeout(typingTimeout);
-  outputEl.textContent = '';
+  outputEl.innerHTML = '';
   let i = 0;
   function type() {
     if (i < text.length) {
-      outputEl.textContent += text.charAt(i);
+      if (text.charAt(i) === '\n') {
+        outputEl.innerHTML += '<br>';
+      } else {
+        outputEl.innerHTML += text.charAt(i);
+      }
       i++;
       typingTimeout = setTimeout(type, 8); // Speedy typing
+    } else {
+      // Parse markdown-like URL syntax into clickable HTML anchor tags
+      let html = outputEl.innerHTML;
+      html = html.replace(/(github\.com\/[a-zA-Z0-9_\-\/]+)/g, '<a href="https://$1" target="_blank" class="terminal-link" style="color: var(--accent); font-weight: bold; text-decoration: underline;">$1</a>');
+      outputEl.innerHTML = html;
     }
   }
   type();
