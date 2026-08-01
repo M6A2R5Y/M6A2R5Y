@@ -1,8 +1,116 @@
-# Hi there, I'm Mary Kinyanjui! 👋
+# Hi there, I'm Mary Kinyanjui! 👋 
 
-<!-- Typing SVG Intro -->
+<!-- Pinterest Aesthetic Banner / Header -->
+<div align="center">
+  
+  <!-- Animated SVG Stitch & Pinterest Moodboard Card -->
+  <svg width="450" height="220" viewBox="0 0 450 220" xmlns="http://www.w3.org/2000/svg" style="border-radius: 20px; box-shadow: 0 8px 24px rgba(188, 169, 154, 0.15); border: 2px solid #F1E5D1; background-color: #FAF6F0; font-family: 'Fredoka', 'Outfit', sans-serif;">
+    <style>
+      @keyframes blink {
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.1); }
+      }
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); }
+        100% { transform: translateY(-6px) rotate(1deg); }
+      }
+      @keyframes ear-l-wave {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(-8deg); }
+      }
+      @keyframes ear-r-wave {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(8deg); }
+      }
+      .ear-left {
+        transform-origin: 90px 105px;
+        animation: ear-l-wave 3s ease-in-out infinite alternate;
+      }
+      .ear-right {
+        transform-origin: 150px 105px;
+        animation: ear-r-wave 3s ease-in-out infinite alternate-reverse;
+      }
+      .eye-pupil {
+        transform-origin: center;
+        animation: blink 4s ease-in-out infinite;
+      }
+      .floating-group {
+        animation: float 4s ease-in-out infinite alternate;
+      }
+      .sparkle {
+        fill: #F59E0B;
+        opacity: 0.8;
+      }
+    </style>
+
+    <!-- Grid lines for Pinterest/Planner vibe -->
+    <line x1="0" y1="40" x2="450" y2="40" stroke="#F1E5D1" stroke-dasharray="5,5" />
+    <line x1="0" y1="180" x2="450" y2="180" stroke="#F1E5D1" stroke-dasharray="5,5" />
+    <line x1="280" y1="0" x2="280" y2="220" stroke="#F1E5D1" />
+
+    <!-- Sparkles and background decor -->
+    <text x="35" y="65" font-size="20" class="sparkle">✦</text>
+    <text x="240" y="160" font-size="16" class="sparkle">✦</text>
+    <circle cx="260" cy="50" r="4" fill="#FF8B94" opacity="0.6" />
+    <circle cx="50" cy="190" r="5" fill="#A7F3D0" opacity="0.6" />
+
+    <!-- Stitch Mascot Group -->
+    <g class="floating-group">
+      <!-- Stitch Ears -->
+      <path class="ear-left" d="M 90,95 C 50,65 30,115 25,145 C 22,155 35,155 60,145 C 80,135 90,110 90,95 Z" fill="#2E75B6"/>
+      <path class="ear-left-inner" d="M 80,100 C 55,85 50,120 45,140 C 55,140 68,133 78,123 Z" fill="#F4B084"/>
+      
+      <path class="ear-right" d="M 150,95 C 190,65 210,115 215,145 C 218,155 205,155 180,145 C 160,135 150,110 150,95 Z" fill="#2E75B6"/>
+      <path class="ear-right-inner" d="M 160,100 C 185,85 190,120 195,140 C 185,140 172,133 162,123 Z" fill="#F4B084"/>
+
+      <!-- Stitch Head -->
+      <ellipse cx="120" cy="135" rx="50" ry="42" fill="#3B82F6"/>
+
+      <!-- Eye Patches -->
+      <ellipse cx="100" cy="133" rx="18" ry="14" transform="rotate(-15, 100, 133)" fill="#93C5FD"/>
+      <ellipse cx="140" cy="133" rx="18" ry="14" transform="rotate(15, 140, 133)" fill="#93C5FD"/>
+
+      <!-- Pupils with Blinking Animation -->
+      <g class="eye-pupil">
+        <ellipse cx="100" cy="131" rx="9" ry="10" fill="#1E293B" />
+        <circle cx="102" cy="129" r="3" fill="#FFFFFF" />
+        <circle cx="98" cy="133" r="1.2" fill="#FFFFFF" />
+      </g>
+      <g class="eye-pupil">
+        <ellipse cx="140" cy="131" rx="9" ry="10" fill="#1E293B" />
+        <circle cx="138" cy="129" r="3" fill="#FFFFFF" />
+        <circle cx="142" cy="133" r="1.2" fill="#FFFFFF" />
+      </g>
+
+      <!-- Nose -->
+      <path d="M 112,137 Q 120,129 128,137 Q 120,147 112,137 Z" fill="#1E3A8A"/>
+
+      <!-- Mouth -->
+      <path d="M 108,155 Q 120,158 132,155" stroke="#1E3A8A" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+      <!-- Blush -->
+      <circle cx="82" cy="148" r="4.5" fill="#FCA5A5" opacity="0.7" />
+      <circle cx="158" cy="148" r="4.5" fill="#FCA5A5" opacity="0.7" />
+    </g>
+
+    <!-- Text Bio & Greeting Details -->
+    <text x="300" y="70" font-size="16" font-weight="bold" fill="#4A3E3D">MARY K.</text>
+    <text x="300" y="95" font-size="12" font-weight="600" fill="#FF8B94">Software Eng.</text>
+    
+    <!-- Status note -->
+    <rect x="300" y="120" width="130" height="60" rx="10" fill="#FFF" stroke="#F1E5D1" />
+    <text x="310" y="140" font-size="10" fill="#8C7A78">Status: Coding ☕</text>
+    <text x="310" y="158" font-size="10" fill="#8C7A78">Energy: 85%</text>
+    <text x="310" y="170" font-size="8" fill="#FF8B94">✦ Ohana means family 🌺</text>
+  </svg>
+
+</div>
+
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Outfit&size=24&duration=3000&pause=1000&color=3B82F6&center=true&vCenter=true&width=450&lines=Junior%20Software%20Engineer;Always+learning+new+tech;Open+to+collaborations" alt="Typing SVG" />
+  <!-- Interactive Web App Badge -->
+  <a href="https://koi.github.io/" target="_blank">
+    <img src="https://img.shields.io/badge/Interactive_Portfolio-Live_Site-FF8B94?style=for-the-badge&logo=About.me&logoColor=white" alt="Live Portfolio Website">
+  </a>
 </p>
 
 <p align="center">
@@ -10,7 +118,7 @@
     <img src="https://img.shields.io/github/followers/koi?label=Follow&style=social" alt="GitHub Followers">
   </a>
   &nbsp;&nbsp;
-  <a href="https://linkedin.com/in/https://ke.linkedin.com/in/marykinyanjui">
+  <a href="https://linkedin.com/in/marykinyanjui">
     <img src="https://img.shields.io/badge/LinkedIn-Blue?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn">
   </a>
   &nbsp;&nbsp;
