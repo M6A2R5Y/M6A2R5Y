@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mary Kinyanjui | Interactive Portfolio ✦</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@300..900&family=Playpen+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Cute Background Patches / Stickers -->
+  <div class="patch patch-star-1">✦</div>
+  <div class="patch patch-star-2">✦</div>
+  <div class="patch patch-cloud-1">☁️</div>
+  <div class="patch patch-cloud-2">☁️</div>
+  <div class="patch patch-heart-1">💖</div>
+  <div class="patch patch-heart-2">✨</div>
+  <div class="patch tape-1"></div>
+  <div class="patch tape-2"></div>
+
+  <div class="portfolio-container">
+    <!-- Main Left/Center column -->
+    <main class="main-content">
+      
+      <!-- Profile Header Polaroid -->
+      <div class="polaroid-header">
+        <div class="profile-pic-container">
+          <!-- Cute Custom Avatar Placeholder or Animated Blob -->
+          <div class="avatar-blob">
+            <span class="avatar-emoji">👩‍💻</span>
+          </div>
+        </div>
+        <div class="profile-title-area">
+          <h1 class="main-title">Mary Kinyanjui</h1>
+          <p class="subtitle">Junior Software Engineer & Creative Builder</p>
+          <div class="typing-intro">
+            <span id="typing-text">Always learning new tech...</span><span class="cursor">|</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stitch Character Interactive Area -->
+      <div class="stitch-section">
+        <div class="stitch-bubble" id="stitch-bubble">
+          Hi! I'm Stitch! Click me or hover to say hello! 🌺
+        </div>
+        <div class="stitch-container" id="stitch-character">
+          <!-- SVG Stitch Character -->
+          <svg class="stitch-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ears -->
+            <path class="stitch-ear ear-left" d="M 60,60 C 20,40 10,80 5,110 C 2,120 15,120 40,110 C 55,100 60,75 60,60 Z" fill="#2E75B6"/>
+            <path class="stitch-ear-inner ear-left-inner" d="M 50,65 C 25,50 20,85 15,105 C 25,105 38,98 48,88 C 52,80 50,70 50,65 Z" fill="#F4B084"/>
+            
+            <path class="stitch-ear ear-right" d="M 140,60 C 180,40 190,80 195,110 C 198,120 185,120 160,110 C 145,100 140,75 140,60 Z" fill="#2E75B6"/>
+            <path class="stitch-ear-inner ear-right-inner" d="M 150,65 C 175,50 180,85 185,105 C 175,105 162,98 152,88 C 148,80 150,70 150,65 Z" fill="#F4B084"/>
+
+            <!-- Head -->
+            <ellipse class="stitch-head" cx="100" cy="100" rx="55" ry="48" fill="#3B82F6"/>
+
+            <!-- Eye Patches (Stitch's lighter blue circles) -->
+            <ellipse class="stitch-eye-patch patch-l" cx="78" cy="98" rx="20" ry="16" transform="rotate(-15, 78, 98)" fill="#93C5FD"/>
+            <ellipse class="stitch-eye-patch patch-r" cx="122" cy="98" rx="20" ry="16" transform="rotate(15, 122, 98)" fill="#93C5FD"/>
+
+            <!-- Eyes (pupils follow mouse dynamically via JS) -->
+            <g class="stitch-eye-group left-eye">
+              <ellipse class="stitch-eye-base" cx="78" cy="96" rx="10" ry="11" fill="#1E293B" />
+              <circle class="stitch-eye-pupil" id="pupil-l" cx="80" cy="94" r="3.5" fill="#FFFFFF" />
+              <circle class="stitch-eye-highlight" cx="76" cy="98" r="1.5" fill="#FFFFFF" />
+            </g>
+            <g class="stitch-eye-group right-eye">
+              <ellipse class="stitch-eye-base" cx="122" cy="96" rx="10" ry="11" fill="#1E293B" />
+              <circle class="stitch-eye-pupil" id="pupil-r" cx="120" cy="94" r="3.5" fill="#FFFFFF" />
+              <circle class="stitch-eye-highlight" cx="124" cy="98" r="1.5" fill="#FFFFFF" />
+            </g>
+
+            <!-- Nose -->
+            <path class="stitch-nose" d="M 90,102 Q 100,92 110,102 Q 100,114 90,102 Z" fill="#1E3A8A"/>
+
+            <!-- Mouth -->
+            <path class="stitch-mouth closed" id="stitch-mouth" d="M 85,124 Q 100,128 115,124" stroke="#1E3A8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+            <!-- Cheeks / Blush -->
+            <circle cx="62" cy="112" r="5" fill="#FCA5A5" opacity="0.6" />
+            <circle cx="138" cy="112" r="5" fill="#FCA5A5" opacity="0.6" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Interactive Profile Terminal -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="terminal-title">mary_kinyanjui ~ bash</div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-tabs">
+            <button class="terminal-tab active" data-cmd="about_me.md">
+              <i data-lucide="user" class="tab-icon"></i> $ cat about_me.md
+            </button>
+            <button class="terminal-tab" data-cmd="skills">
+              <i data-lucide="cpu" class="tab-icon"></i> $ run diagnostics --skills
+            </button>
+            <button class="terminal-tab" data-cmd="projects">
+              <i data-lucide="git-branch" class="tab-icon"></i> $ git log --projects
+            </button>
+            <button class="terminal-tab" data-cmd="goals">
+              <i data-lucide="target" class="tab-icon"></i> $ ./get_goals.sh
+            </button>
+          </div>
+          
+          <div class="terminal-content">
+            <div id="terminal-output" class="terminal-output-text">
+              <!-- Content gets injected and typed dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Characters Grid -->
+      <div class="languages-section">
+        <h3 class="section-title">Language Companions</h3>
+        <p class="section-subtitle">Hover over these cute little language blobs to see their personalities!</p>
+        <div class="companions-grid">
+          
+          <!-- JS Companion -->
+          <div class="companion-card companion-js" data-tooltip="JavaScript: Hyperactive, loves scripts, drinks way too much coffee.">
+            <div class="companion-avatar js-avatar">
+              <div class="companion-body">
+                <span class="eyes">👁️👁️</span>
+                <span class="smile">✿</span>
+              </div>
+            </div>
+            <span class="companion-label">JS Blob</span>
+          </div>
+
+          <!-- TS Companion -->
+          <div class="companion-card companion-ts" data-tooltip="TypeScript: Strictly organized wizard who fixes JS blobs' bugs.">
+            <div class="companion-avatar ts-avatar">
+              <div class="wizard-hat">✦</div>
+              <div class="companion-body">
+                <span class="eyes">•ᴗ•</span>
+              </div>
+            </div>
+            <span class="companion-label">TS Wizard</span>
+          </div>
+
+          <!-- Python Companion -->
+          <div class="companion-card companion-python" data-tooltip="Python: Cozy little snake helper. Clean, friendly, and eats data.">
+            <div class="companion-avatar python-avatar">
+              <div class="snake-body">
+                <span class="eyes">◕‿◕</span>
+              </div>
+            </div>
+            <span class="companion-label">Cozy Snake</span>
+          </div>
+
+          <!-- React Companion -->
+          <div class="companion-card companion-react" data-tooltip="React: Hyper-reactive atom spinning around components.">
+            <div class="companion-avatar react-avatar">
+              <div class="atom-orbits"></div>
+              <div class="companion-body">
+                <span class="eyes">°o°</span>
+              </div>
+            </div>
+            <span class="companion-label">React Atom</span>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Sidebar / Analytics Dashboard Column -->
+    <aside class="sidebar">
+      
+      <!-- Quick Info / Status Planner Card -->
+      <div class="planner-card">
+        <h3 class="planner-title">Daily Planner</h3>
+        
+        <div class="planner-item">
+          <div class="planner-label"><i data-lucide="coffee" class="p-icon"></i> Energy Meter</div>
+          <div class="progress-bar-container" id="coffee-meter-container">
+            <div class="progress-bar" id="coffee-bar" style="width: 85%;"></div>
+            <span class="progress-text" id="coffee-text">85% Charged</span>
+          </div>
+          <button class="refill-btn" id="refill-coffee-btn">Refill Coffee ☕</button>
+        </div>
+
+        <div class="planner-item">
+          <div class="planner-label"><i data-lucide="clock" class="p-icon"></i> Active Coding Time</div>
+          <div class="stat-value" id="live-time">17:03:00</div>
+        </div>
+
+        <div class="planner-item">
+          <div class="planner-label"><i data-lucide="music" class="p-icon"></i> Now Playing</div>
+          <div class="now-playing-box">
+            <div class="music-disc" id="music-disc">🎵</div>
+            <div class="music-info">
+              <div class="music-title">Lo-Fi coding vibes</div>
+              <div class="music-artist">Synthwave Mix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sleek Analytics Interface Widget -->
+      <div class="analytics-card">
+        <div class="analytics-header">
+          <h3 class="analytics-title"><i data-lucide="bar-chart-2"></i> Activity Metrics</h3>
+          <span class="pulse-dot"></span>
+        </div>
+        
+        <!-- Interactive stats cards -->
+        <div class="stats-mini-grid">
+          <div class="stat-mini-card">
+            <span class="stat-num" id="stat-commits">458</span>
+            <span class="stat-lbl">Commits YTD</span>
+          </div>
+          <div class="stat-mini-card">
+            <span class="stat-num" id="stat-prs">42</span>
+            <span class="stat-lbl">PRs Merged</span>
+          </div>
+        </div>
+
+        <!-- Custom styled contribution grid (cute pastel dots) -->
+        <div class="git-grid-container">
+          <span class="git-grid-label">Recent Contributions</span>
+          <div class="git-grid" id="git-contribution-grid">
+            <!-- Dynamically populated via JS with beautiful custom tooltips -->
+          </div>
+        </div>
+
+        <!-- Dynamic Bio Adjuster (Interactive controls) -->
+        <div class="bio-adjuster-section">
+          <span class="adjuster-title"><i data-lucide="sliders"></i> Customize My Dashboard</span>
+          <div class="sliders-container">
+            <div class="slider-group">
+              <label for="slider-cute">Cuteness Meter</label>
+              <input type="range" id="slider-cute" min="50" max="100" value="85">
+            </div>
+            <div class="slider-group">
+              <label for="slider-coffee">Coffee Dependency</label>
+              <input type="range" id="slider-coffee" min="70" max="100" value="95">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Social & Contact Polaroid Pinboard -->
+      <div class="contact-pinboard">
+        <h4 class="pinboard-title">Let's Connect!</h4>
+        <div class="social-links">
+          <a href="https://github.com/koi" target="_blank" class="social-chip github">
+            <i data-lucide="github"></i> koi
+          </a>
+          <a href="https://linkedin.com/in/marykinyanjui" target="_blank" class="social-chip linkedin">
+            <i data-lucide="linkedin"></i> LinkedIn
+          </a>
+          <a href="mailto:kinyanjuimary516@gmail.com" class="social-chip email">
+            <i data-lucide="mail"></i> Email
+          </a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
