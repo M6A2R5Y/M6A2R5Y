@@ -195,9 +195,9 @@
 ## 📊 GitHub Analytics
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=koi&show_icons=true&theme=nightowl&hide_border=true" alt="GitHub Stats" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api?username=marykinyanjui&show_icons=true&bg_color=FAF6F0&title_color=FF8B94&text_color=4A3E3D&icon_color=FF8B94&border_color=F1E5D1" alt="GitHub Stats" width="48%" />
   &nbsp;&nbsp;
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=koi&layout=compact&theme=nightowl&hide_border=true" alt="Top Languages" width="48%" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=marykinyanjui&layout=compact&bg_color=FAF6F0&title_color=FF8B94&text_color=4A3E3D&icon_color=FF8B94&border_color=F1E5D1" alt="Top Languages" width="48%" />
 </p>
 
 ---
