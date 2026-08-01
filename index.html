@@ -371,47 +371,88 @@
       <!-- Dashboard Multi-column Workspace -->
       <div class="recruiter-workspace">
         
-        <!-- Left: Simulated IDE / Interactive Project Code Explorer -->
-        <div class="workspace-card project-explorer-card">
+        <!-- Left: Simulated Architecture Node Map -->
+        <div class="workspace-card architecture-simulator-card">
           <div class="card-header-sleek">
-            <div class="header-tab-title"><i data-lucide="folder-git-2"></i> Interactive Code Explorer</div>
-            <span class="card-header-hint">Click files to review code quality & structure</span>
+            <div class="header-tab-title"><i data-lucide="network"></i> Interactive Cloud Architecture Simulator</div>
+            <span class="card-header-hint">Click nodes to diagnose, scale, or fail components!</span>
           </div>
           
-          <div class="explorer-layout">
-            <!-- File Sidebar -->
-            <div class="explorer-sidebar">
-              <div class="explorer-project-title"><i data-lucide="git-fork"></i> PROJECTS</div>
-              <ul class="explorer-file-tree">
-                
-                <!-- Playverse Project Folder -->
-                <li class="tree-folder open" data-project="playverse">
-                  <div class="folder-title"><i data-lucide="chevron-down"></i> <i data-lucide="folder" class="f-icon"></i> playverse</div>
-                  <ul class="folder-contents">
-                    <li class="file-item active" data-file="playverse-canvas"><i data-lucide="file-code" class="file-icon js-color"></i> canvas.ts</li>
-                    <li class="file-item" data-file="playverse-test"><i data-lucide="file-check" class="file-icon ts-color"></i> canvas.test.ts</li>
-                  </ul>
-                </li>
+          <div class="simulator-layout">
+            <!-- Node Canvas / Grid -->
+            <div class="node-canvas">
+              <svg class="connections-svg" id="connections-svg">
+                <!-- SVG connections dynamically drawn or styled via CSS grid -->
+                <path id="path-client-gateway" d="" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+                <path id="path-gateway-service" d="" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+                <path id="path-service-db" d="" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+              </svg>
 
-                <!-- DataStream Project Folder -->
-                <li class="tree-folder open" data-project="datastream">
-                  <div class="folder-title"><i data-lucide="chevron-down"></i> <i data-lucide="folder" class="f-icon"></i> datastream</div>
-                  <ul class="folder-contents">
-                    <li class="file-item" data-file="datastream-stream"><i data-lucide="file-code" class="file-icon react-color"></i> stream.tsx</li>
-                    <li class="file-item" data-file="datastream-server"><i data-lucide="file-cog" class="file-icon py-color"></i> server.js</li>
-                  </ul>
-                </li>
+              <!-- Node 1: Client -->
+              <div class="arch-node active" id="node-client" data-node="client">
+                <div class="node-icon-wrapper"><i data-lucide="monitor"></i></div>
+                <span class="node-label">Client Browser</span>
+                <span class="node-status-indicator"></span>
+              </div>
 
-              </ul>
+              <!-- Node 2: Gateway -->
+              <div class="arch-node active" id="node-gateway" data-node="gateway">
+                <div class="node-icon-wrapper"><i data-lucide="shield-alert"></i></div>
+                <span class="node-label">API Gateway</span>
+                <span class="node-status-indicator"></span>
+              </div>
+
+              <!-- Node 3: Microservice -->
+              <div class="arch-node active" id="node-service" data-node="service">
+                <div class="node-icon-wrapper"><i data-lucide="cpu"></i></div>
+                <span class="node-label">Web Engine</span>
+                <span class="node-status-indicator"></span>
+              </div>
+
+              <!-- Node 4: Database -->
+              <div class="arch-node active" id="node-db" data-node="db">
+                <div class="node-icon-wrapper"><i data-lucide="database"></i></div>
+                <span class="node-label">NoSQL Store</span>
+                <span class="node-status-indicator"></span>
+              </div>
             </div>
 
-            <!-- File Viewer -->
-            <div class="explorer-viewer">
-              <div class="viewer-header">
-                <span class="viewer-file-name" id="current-explorer-filename">canvas.ts</span>
-                <span class="viewer-lang-badge" id="current-explorer-lang">TypeScript</span>
+            <!-- Node Controls Panel -->
+            <div class="node-controls-panel">
+              <div id="control-default-msg" class="control-msg">
+                <i data-lucide="mouse-pointer-click" class="l-large"></i>
+                <p>Click any node in the system diagram to inspect status and execute operational commands.</p>
               </div>
-              <pre class="viewer-code-block"><code id="explorer-code-content">Loading code snippet...</code></pre>
+
+              <div id="control-active-panel" class="control-actions hidden">
+                <h4 class="control-node-title" id="active-node-title">Node Configuration</h4>
+                
+                <div class="control-status-row">
+                  <span class="control-status-lbl">Operational Status:</span>
+                  <button class="status-toggle-btn" id="btn-toggle-node-state">Active</button>
+                </div>
+
+                <div class="control-slider-group hidden" id="control-scale-group">
+                  <label for="scale-slider" class="control-lbl">Instances: <span id="scale-count-display">1</span></label>
+                  <input type="range" id="scale-slider" min="1" max="4" value="1">
+                </div>
+
+                <button class="node-ping-btn" id="btn-ping-node"><i data-lucide="activity"></i> Run Diagnostics</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Latency / Health Chart Visualizer -->
+          <div class="latency-chart-section">
+            <div class="chart-legend">
+              <span class="legend-title"><i data-lucide="trending-up"></i> Realtime Response Time (ms)</span>
+              <span class="legend-value" id="current-latency-val">45ms</span>
+            </div>
+            <div class="svg-chart-container">
+              <svg class="latency-svg-chart" viewBox="0 0 500 100" preserveAspectRatio="none">
+                <path id="latency-chart-path" d="" fill="none" stroke="#3B82F6" stroke-width="2.5" />
+                <path id="latency-chart-fill" d="" fill="rgba(59, 130, 246, 0.08)" />
+              </svg>
             </div>
           </div>
         </div>

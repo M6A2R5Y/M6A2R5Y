@@ -209,217 +209,210 @@ if (sliderCute) {
 // Recruiter Mode Interactivity
 // ==========================================================================
 
-// Project Explorer Code Snippets
-const explorerCodeSnippets = {
-  'playverse-canvas': {
-    filename: 'canvas.ts',
-    lang: 'TypeScript',
-    code: `// playverse/src/canvas.ts
-import { Entity, GameConfig } from "./types";
+// ==========================================================================
+// Recruiter Mode Interactivity: Cloud Architecture Simulator
+// ==========================================================================
 
-export class CanvasRenderer {
-  private ctx: CanvasRenderingContext2D;
-  private bufferCanvas: HTMLCanvasElement;
-  private bufferCtx: CanvasRenderingContext2D;
-
-  constructor(private canvas: HTMLCanvasElement, private config: GameConfig) {
-    this.ctx = canvas.getContext("2d")!;
-    this.bufferCanvas = document.createElement("canvas");
-    this.bufferCanvas.width = canvas.width;
-    this.bufferCanvas.height = canvas.height;
-    this.bufferCtx = this.bufferCanvas.getContext("2d")!;
-  }
-
-  // High performance double-buffered rendering loop
-  public draw(entities: Entity[], cameraOffset: { x: number; y: number }): void {
-    const { width, height } = this.canvas;
-    const bCtx = this.bufferCtx;
-
-    // Clear buffer
-    bCtx.fillStyle = "#1E293B";
-    bCtx.fillRect(0, 0, width, height);
-
-    // Apply camera transformations
-    bCtx.save();
-    bCtx.translate(-cameraOffset.x, -cameraOffset.y);
-
-    // Render system layers
-    this.renderBackgroundGrid(bCtx);
-    
-    // Sort entities by Z-index for correct overlapping
-    entities
-      .sort((a, b) => a.zIndex - b.zIndex)
-      .forEach(entity => {
-        if (this.isWithinViewport(entity, cameraOffset)) {
-          entity.render(bCtx);
-        }
-      });
-
-    bCtx.restore();
-
-    // Swap buffers
-    this.ctx.drawImage(this.bufferCanvas, 0, 0);
-  }
-
-  private isWithinViewport(entity: Entity, offset: { x: number; y: number }): boolean {
-    return (
-      entity.x + entity.width > offset.x &&
-      entity.x < offset.x + this.canvas.width &&
-      entity.y + entity.height > offset.y &&
-      entity.y < offset.y + this.canvas.height
-    );
-  }
-}`
-  },
-  'playverse-test': {
-    filename: 'canvas.test.ts',
-    lang: 'TypeScript',
-    code: `// playverse/src/canvas.test.ts
-import { CanvasRenderer } from "./canvas";
-import { Entity, GameConfig } from "./types";
-
-describe("CanvasRenderer Viewport Culling", () => {
-  let mockCanvas: HTMLCanvasElement;
-  let config: GameConfig;
-
-  beforeEach(() => {
-    mockCanvas = {
-      width: 800,
-      height: 600,
-      getContext: jest.fn(() => ({
-        drawImage: jest.fn()
-      }))
-    } as unknown as HTMLCanvasElement;
-
-    config = { scale: 1, debugMode: false };
-  });
-
-  test("Should discard rendering entities positioned outside the screen", () => {
-    const renderer = new CanvasRenderer(mockCanvas, config);
-    const renderSpy = jest.fn();
-
-    const mockEntity: Entity = {
-      x: 1000, // Beyond screen boundary
-      y: 200,
-      width: 50,
-      height: 50,
-      zIndex: 1,
-      render: renderSpy
-    };
-
-    renderer.draw([mockEntity], { x: 0, y: 0 });
-    expect(renderSpy).not.toHaveBeenCalled();
-  });
-
-  test("Should render entities positioned within viewport boundaries", () => {
-    const renderer = new CanvasRenderer(mockCanvas, config);
-    const renderSpy = jest.fn();
-
-    const mockEntity: Entity = {
-      x: 300,
-      y: 200,
-      width: 50,
-      height: 50,
-      zIndex: 1,
-      render: renderSpy
-    };
-
-    renderer.draw([mockEntity], { x: 0, y: 0 });
-    expect(renderSpy).toHaveBeenCalledTimes(1);
-  });
-});`
-  },
-  'datastream-stream': {
-    filename: 'stream.tsx',
-    lang: 'React TSX',
-    code: `// datastream/src/stream.tsx
-import React, { useEffect, useState, useRef } from "react";
-import { MetricPayload } from "./types";
-
-export const MetricsStream: React.FC<{ socketUrl: string }> = ({ socketUrl }) => {
-  const [metrics, setMetrics] = useState<MetricPayload[]>([]);
-  const [status, setStatus] = useState<"connecting" | "active" | "failed">("connecting");
-  const wsRef = useRef<WebSocket | null>(null);
-
-  useEffect(() => {
-    const connect = () => {
-      wsRef.current = new WebSocket(socketUrl);
-
-      wsRef.current.onopen = () => setStatus("active");
-      
-      wsRef.current.onmessage = (event) => {
-        const payload: MetricPayload = JSON.parse(event.data);
-        setMetrics((prev) => [payload, ...prev.slice(0, 49)]); // Keep latest 50
-      };
-
-      wsRef.current.onerror = () => setStatus("failed");
-      
-      wsRef.current.onclose = () => {
-        setStatus("connecting");
-        setTimeout(connect, 3000); // Exponential backoff retry
-      };
-    };
-
-    connect();
-    return () => wsRef.current?.close(); // Correct lifecycle cleanup
-  }, [socketUrl]);
-
-  return (
-    <div className="metrics-dashboard">
-      <span className={\`status-dot \${status}\`} />
-      <h3>Realtime Telemetry Stream</h3>
-      <ul class="telemetry-log">
-        {metrics.map((m) => (
-          <li key={m.timestamp}>
-            [{new Date(m.timestamp).toLocaleTimeString()}] {m.source}: {m.value}%
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};`
-  },
-  'datastream-server': {
-    filename: 'server.js',
-    lang: 'JavaScript Node',
-    code: `// datastream/server/server.js
-const express = require("express");
-const http = require("http");
-const WebSocket = require("ws");
-
-const app = express();
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
-
-app.use(express.json());
-
-// Secure validation middleware
-const validateMetrics = (req, res, next) => {
-  const { source, value } = req.body;
-  if (typeof source !== "string" || typeof value !== "number" || value < 0 || value > 100) {
-    return res.status(400).json({ error: "Invalid metric schema format" });
-  }
-  next();
+// Cloud Architecture System States
+const systemState = {
+  client: { active: true, label: "Client Browser", desc: "User agent rendering layout components and initiating WebSocket telemetry streams." },
+  gateway: { active: true, label: "API Gateway", desc: "Routing gateway validating client sessions, sanitizing payloads, and mediating API traffic." },
+  service: { active: true, label: "Web Engine", instances: 1, desc: "Asynchronous Node.js middleware engine executing backend business workflows." },
+  db: { active: true, label: "NoSQL Store", instances: 1, desc: "MongoDB replication database handling transactional datasets and logs." }
 };
 
-app.post("/api/metrics", validateMetrics, (req, res) => {
-  const payload = { ...req.body, timestamp: Date.now() };
+let selectedNodeId = null;
+
+// Latency Simulation Graph Data
+let latencyValues = [45, 48, 42, 46, 44, 43, 47, 45, 44, 46, 42, 45, 43, 44, 47, 45, 42, 46, 44, 45];
+const maxDataPoints = 20;
+
+function drawLatencyGraph() {
+  const chartPath = document.getElementById('latency-chart-path');
+  const chartFill = document.getElementById('latency-chart-fill');
+  const latencyValEl = document.getElementById('current-latency-val');
   
-  // Broadcast sanitised telemetry logs to connected dashboard clients
-  wss.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify(payload));
+  if (!chartPath || !chartFill) return;
+
+  const width = 500;
+  const height = 100;
+  const padding = 10;
+  
+  // Calculate current latency based on system health
+  let activeLatency = 45;
+  let isDown = false;
+  let errorMsg = '';
+
+  if (!systemState.gateway.active) {
+    isDown = true;
+    errorMsg = 'GATEWAY TIMEOUT (504)';
+  } else if (!systemState.service.active) {
+    isDown = true;
+    errorMsg = 'ENGINE DOWN (503)';
+  } else if (!systemState.db.active) {
+    isDown = true;
+    errorMsg = 'DB CONN ERROR (500)';
+  }
+
+  if (isDown) {
+    activeLatency = 999;
+    latencyValEl.textContent = errorMsg;
+    latencyValEl.className = 'legend-value critical';
+  } else {
+    // Normal fluctuations with adjustments for scaling
+    const serviceScale = systemState.service.instances;
+    const dbScale = systemState.db.instances;
+    
+    // Scaling reduces response times under simulation load
+    activeLatency = Math.max(15, 52 - (serviceScale * 5) - (dbScale * 4) + Math.floor(Math.random() * 8));
+    latencyValEl.textContent = `${activeLatency}ms`;
+    latencyValEl.className = 'legend-value';
+  }
+
+  // Push new value and shift array
+  latencyValues.push(activeLatency);
+  if (latencyValues.length > maxDataPoints) {
+    latencyValues.shift();
+  }
+
+  // Generate SVG path coordinates
+  const points = [];
+  const xStep = width / (maxDataPoints - 1);
+  const maxScaleVal = 120; // Max normal rendering height scale
+
+  latencyValues.forEach((val, index) => {
+    const renderVal = Math.min(val, 95); // cap visual peak to keep inside SVG bounds
+    const x = index * xStep;
+    const y = height - padding - ((renderVal / maxScaleVal) * (height - padding * 2));
+    points.push(`${x},${y}`);
+  });
+
+  const pathD = `M ${points.join(' L ')}`;
+  const fillD = `${pathD} L ${width},${height} L 0,${height} Z`;
+
+  chartPath.setAttribute('d', pathD);
+  chartFill.setAttribute('d', fillD);
+}
+
+// Periodically update the latency simulator graph
+setInterval(drawLatencyGraph, 1500);
+
+// Node Selection & Controls Binding
+const archNodes = document.querySelectorAll('.arch-node');
+const controlDefaultMsg = document.getElementById('control-default-msg');
+const controlActivePanel = document.getElementById('control-active-panel');
+const activeNodeTitle = document.getElementById('active-node-title');
+const btnToggleNodeState = document.getElementById('btn-toggle-node-state');
+const controlScaleGroup = document.getElementById('control-scale-group');
+const scaleSlider = document.getElementById('scale-slider');
+const scaleCountDisplay = document.getElementById('scale-count-display');
+const btnPingNode = document.getElementById('btn-ping-node');
+
+function selectNode(nodeId) {
+  selectedNodeId = nodeId;
+  const node = systemState[nodeId];
+  
+  // Toggle UI selection classes
+  archNodes.forEach(n => {
+    n.classList.remove('selected');
+    if (n.getAttribute('data-node') === nodeId) {
+      n.classList.add('selected');
     }
   });
 
-  return res.sendStatus(202);
+  // Display control panel
+  controlDefaultMsg.classList.add('hidden');
+  controlActivePanel.classList.remove('hidden');
+  
+  activeNodeTitle.textContent = node.label;
+  
+  // Set Node State Buttons
+  if (node.active) {
+    btnToggleNodeState.textContent = 'Active (Online)';
+    btnToggleNodeState.classList.remove('failed-state');
+  } else {
+    btnToggleNodeState.textContent = 'Failed (Offline)';
+    btnToggleNodeState.classList.add('failed-state');
+  }
+
+  // Handle scaling sliders for Service and DB layers
+  if (nodeId === 'service' || nodeId === 'db') {
+    controlScaleGroup.classList.remove('hidden');
+    scaleSlider.value = node.instances;
+    scaleCountDisplay.textContent = node.instances;
+  } else {
+    controlScaleGroup.classList.add('hidden');
+  }
+}
+
+// Bind clicks to nodes
+archNodes.forEach(nodeEl => {
+  nodeEl.addEventListener('click', () => {
+    const nodeId = nodeEl.getAttribute('data-node');
+    selectNode(nodeId);
+  });
 });
 
-server.listen(process.env.PORT || 8080, () => {
-  console.log("Telemetry engine listening on port 8080");
-});`
-  }
-};
+// Toggle status handler
+if (btnToggleNodeState) {
+  btnToggleNodeState.addEventListener('click', () => {
+    if (!selectedNodeId) return;
+    const node = systemState[selectedNodeId];
+    node.active = !node.active;
+    
+    // Update node class
+    const nodeEl = document.getElementById(`node-${selectedNodeId}`);
+    if (node.active) {
+      nodeEl.classList.remove('failed');
+      nodeEl.classList.add('active');
+    } else {
+      nodeEl.classList.remove('active');
+      nodeEl.classList.add('failed');
+    }
+
+    // Refresh control view state
+    selectNode(selectedNodeId);
+    drawLatencyGraph();
+  });
+}
+
+// Scale Instance slider handler
+if (scaleSlider && scaleCountDisplay) {
+  scaleSlider.addEventListener('input', (e) => {
+    if (!selectedNodeId) return;
+    const val = parseInt(e.target.value);
+    systemState[selectedNodeId].instances = val;
+    scaleCountDisplay.textContent = val;
+    drawLatencyGraph();
+  });
+}
+
+// Diagnostic Ping Animations (Visual Packet Pulse Flow)
+if (btnPingNode) {
+  btnPingNode.addEventListener('click', () => {
+    // Sequentially add glowing class to simulate a packet diagnostic flowing
+    const sequence = ['client', 'gateway', 'service', 'db'];
+    
+    sequence.forEach((nodeId, idx) => {
+      setTimeout(() => {
+        const nodeEl = document.getElementById(`node-${nodeId}`);
+        if (nodeEl) {
+          nodeEl.classList.add('selected');
+          setTimeout(() => {
+            // Remove selection unless it is the currently configured node
+            if (selectedNodeId !== nodeId) {
+              nodeEl.classList.remove('selected');
+            }
+          }, 350);
+        }
+      }, idx * 400);
+    });
+    
+    setTimeout(() => {
+      showToast("Architecture diagnostic pulse completed!");
+    }, sequence.length * 400);
+  });
+}
 
 // Switch Views & Mode Selection
 const btnCozy = document.getElementById('btn-cozy');
@@ -435,8 +428,8 @@ function setViewMode(mode) {
     recruiterView.classList.add('active');
     document.body.classList.add('theme-recruiter');
     
-    // Load initial code snippet if not already loaded
-    loadExplorerCode('playverse-canvas');
+    // Render latency graph initially
+    setTimeout(drawLatencyGraph, 100);
   } else {
     btnRecruiter.classList.remove('active');
     btnCozy.classList.add('active');
@@ -456,30 +449,6 @@ if (btnCozy && btnRecruiter) {
 // Restore saved preference
 const savedMode = localStorage.getItem('portfolio-mode') || 'cozy';
 setViewMode(savedMode);
-
-// Project Explorer Interactive Selection
-const fileItems = document.querySelectorAll('.file-item');
-const currentFilenameEl = document.getElementById('current-explorer-filename');
-const currentLangEl = document.getElementById('current-explorer-lang');
-const codeContentEl = document.getElementById('explorer-code-content');
-
-function loadExplorerCode(fileId) {
-  const snippet = explorerCodeSnippets[fileId];
-  if (snippet && codeContentEl) {
-    currentFilenameEl.textContent = snippet.filename;
-    currentLangEl.textContent = snippet.lang;
-    codeContentEl.textContent = snippet.code;
-  }
-}
-
-fileItems.forEach(item => {
-  item.addEventListener('click', () => {
-    fileItems.forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    const fileId = item.getAttribute('data-file');
-    loadExplorerCode(fileId);
-  });
-});
 
 // Q&A Accordion interactive toggle
 const accordionTriggers = document.querySelectorAll('.accordion-trigger');
