@@ -1,17 +1,17 @@
+<!-- markdownlint-disable MD033 -->
+
 # Hi there, I'm Mary Kinyanjui! 👋 
-
-
 
 <p align="center">
   <!-- Interactive Web App Badge -->
-  <a href="https://koi.github.io/" target="_blank">
+  <a href="https://kinyanjuiportfolio.netlify.app/" target="_blank">
     <img src="https://img.shields.io/badge/Interactive_Portfolio-Live_Site-FF8B94?style=for-the-badge&logo=About.me&logoColor=white" alt="Live Portfolio Website">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/koi">
-    <img src="https://img.shields.io/github/followers/koi?label=Follow&style=social" alt="GitHub Followers">
+  <a href="https://github.com/M6A2R5Y">
+    <img src="https://img.shields.io/github/followers/M6A2R5Y?label=Follow&style=social" alt="GitHub Followers">
   </a>
   &nbsp;&nbsp;
   <a href="https://linkedin.com/in/marykinyanjui">
