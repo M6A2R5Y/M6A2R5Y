@@ -4,7 +4,7 @@
 
 <p align="center">
   <!-- Interactive Web App Badge -->
-  <a href="https://koi.github.io/" target="_blank">
+  <a href="https://kinyanjuiportfolio.netlify.app/" target="_blank">
     <img src="https://img.shields.io/badge/Interactive_Portfolio-Live_Site-FF8B94?style=for-the-badge&logo=About.me&logoColor=white" alt="Live Portfolio Website">
   </a>
 </p>
@@ -47,10 +47,6 @@
 <details>
 <summary><b>$ run system_diagnostics --skills</b></summary>
 
-### 💻 Technologies & Frameworks
-
-| Category | Technologies |
-| :--- | :--- |
 ### 💻 Technologies & Frameworks
 
 | Category | Technologies |
